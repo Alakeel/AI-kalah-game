@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 
 /*
- * 			Version (3.0)
+ * 			Version (3.2)
  */
 
 
@@ -62,7 +62,7 @@ public class theGame {
 		//KalahGUI.gui(); 
 
 		// display is always used after each move
-		//displayTable();
+		displayTable();
 
 		// chose which player you want to start with
 		startGame();
@@ -77,7 +77,6 @@ public class theGame {
 		}
 		A[6]= 0;
 		A[13]= 0;
-
 	}
 
 	public static void startGame(){
@@ -194,14 +193,13 @@ public class theGame {
 
 		}
 		else{
-			
-			
 			System.out.println("Move is: " +  in);
 			int k=0;
 			int i;
 			int loc = 0;
 			int steal = 99;
 			value = A[in];
+			A[in] = 0;
 			for(i=1;i<=value;i++){
 				loc = i+in;
 				steal = A[loc];
@@ -212,10 +210,83 @@ public class theGame {
 						steal = A[loc];
 						A[loc]= ++A[loc];
 						k++;
+					//	System.out.println("hhhhhhhhhhhhhhhhh: " + loc);
+
 					}
 				}
 			}
-			A[in]= 0;
+			if(in == 5){
+				if(value>=8){
+					if(loc == 13){
+						loc = 0;
+						A[0] = ++A[0];
+					}else{
+						A[++loc]= ++A[loc];
+					}
+					--A[13];
+					System.out.println("Skipped 13");
+				}
+			}
+			else if(in == 4){
+				if(value>=9){
+					if(loc == 13){
+						loc = 0;
+						A[0] = ++A[0];
+					}else{
+						A[++loc]= ++A[loc];
+					}
+					--A[13];
+					System.out.println("Skipped 13");
+				}
+			}
+			else if(in == 3){
+				if(value>=10){
+					if(loc == 13){
+						loc = 0;
+						A[0] = ++A[0];
+					}else{
+						A[++loc]= ++A[loc];
+					}
+					--A[13];
+					System.out.println("Skipped 13");
+				}
+			}
+			else if(in == 2){
+				if(value>=11){
+					if(loc == 13){
+						loc = 0;
+						A[0] = ++A[0];
+					}else{
+						A[++loc]= ++A[loc];
+					}
+					--A[13];
+					System.out.println("Skipped 13");
+				}
+			}
+			else if(in == 1){
+				if(value>=12){
+					if(loc == 13){
+						loc = 0;
+						A[0] = ++A[0];
+					}else{
+						A[++loc]= ++A[loc];
+					}
+					--A[13];
+					System.out.println("Skipped 13");
+				}
+			}
+			else if(in == 0){
+				if(value>=13){
+					if(loc == 13){
+						loc = 0;
+						A[0] = ++A[0];
+					}else{
+						A[++loc]= ++A[loc];
+					}
+					--A[13];
+					System.out.println("Skipped 13");
+				}
+			}
 
 			if(i==++value&&loc==6){
 				displayTable();
@@ -233,33 +304,38 @@ public class theGame {
 					A[6]+= A[12] + A[0];
 					A[12] = 0;
 					A[0] = 0;
+					System.out.println("\n Stolen Points at 12");
 				}
 				else if(loc==1&&A[11]!=0){
 					A[6]+= A[11] + A[1];
 					A[11] = 0;
 					A[1] = 0;
+					System.out.println("\n Stolen Points at 11");
 				}
 				else if(loc==2&&A[10]!=0){
 					A[6]+= A[10] + A[2];
 					A[10] = 0;
 					A[2] = 0;
+					System.out.println("\n Stolen Points at 10");
 				}
 				else if(loc==3&&A[9]!=0){
 					A[6]+= A[9] + A[3];
 					A[9] = 0;
 					A[3] = 0;
+					System.out.println("\n Stolen Points at 9");
 				}
 				else if(loc==4&&A[8]!=0){
 					A[6]+= A[8] + A[4];
 					A[8] = 0;
 					A[4] = 0;
+					System.out.println("\n Stolen Points at 8");
 				}
 				else if(loc==5&&A[7]!=0){
 					A[6]+= A[7] + A[5];
 					A[7] = 0;
 					A[5] = 0;
+					System.out.println("\n Stolen Points at 7");
 				}
-				System.out.println("\nSTOLEN =D");
 				//infoBox("PLayer 1 got a steal ","Steal!!");
 			}
 
@@ -296,6 +372,7 @@ public class theGame {
 			int loc = 0;
 			int steal = 99;
 			value = A[in];
+			A[in] = 0;
 			for(i=1;i<=value;i++){
 				loc = i+in;
 				steal = A[loc];
@@ -309,7 +386,49 @@ public class theGame {
 					}
 				}
 			}
-			A[in]= 0;
+			if(in == 7){
+				if(value>=13){
+					--A[6];
+					A[++loc]= ++A[loc];
+					System.out.println("Skipped 6");
+				}
+			}
+			else if(in == 8){
+				if(value>=12){
+					System.out.println("loc"+loc);
+					--A[6];
+					A[++loc]= ++A[loc];
+					System.out.println("Skipped 6");
+				}
+			}
+			else if(in == 9){
+				if(value>=11){
+					--A[6];
+					A[++loc]= ++A[loc];
+					System.out.println("Skipped 6");
+				}
+			}
+			else if(in == 10){
+				if(value>=10){
+					--A[6];
+					A[++loc]= ++A[loc];
+					System.out.println("Skipped 6");
+				}
+			}
+			else if(in == 11){
+				if(value>=9){
+					--A[6];
+					A[++loc]= ++A[loc];
+					System.out.println("Skipped 6");
+				}
+			}
+			else if(in == 12){
+				if(value>=8){
+					--A[6];
+					A[++loc]= ++A[loc];
+					System.out.println("Skipped 6");
+				}
+			}
 
 			if(i==++value&&loc==13){
 				displayTable();
@@ -328,36 +447,42 @@ public class theGame {
 					A[13]+= A[12] + A[0];
 					A[0] = 0;
 					A[12] = 0;
+					System.out.println("\n Stolen Points at 0");
 				}
 				else if(loc==11&&A[1]!=0){
 					A[13]+= A[11] + A[1];
 					A[1] = 0;
 					A[11] = 0;
+					System.out.println("\n Stolen Points at 1");
 				}
 				else if(loc==10&&A[2]!=0){
 					A[13]+= A[10] + A[2];
 					A[2] = 0;
 					A[10] = 0;
+					System.out.println("\n Stolen Points at 2");
 				}
 				else if(loc==9&&A[3]!=0){
 					A[13]+= A[9] + A[3];
 					A[3] = 0;
 					A[9] = 0;
+					System.out.println("\n Stolen Points at 3");
 				}
 				else if(loc==8&&A[4]!=0){
 					A[13]+= A[8] + A[4];
 					A[4] = 0;
 					A[8] = 0;
+					System.out.println("\n Stolen Points at 4");
 				}
 				else if(loc==7&&A[5]!=0){
 					A[13]+= A[7] + A[5];
 					A[5] = 0;
 					A[7] = 0;
+					System.out.println("\n Stolen Points at 5");
 				}
 				//System.out.println("\nSTOLEN =D");
 				//infoBox("PLayer 2 got a steal ","Steal!!");
 			}
-
+			
 		}
 
 	}
@@ -442,9 +567,11 @@ public class theGame {
 					KalahGUI.currentState = false;
 					algoMove = KalahGUI.V;
 				}*/
-				algoMove= makeMove();
+				/*				algoMove= makeMove();
 				moveCounter++;
-				System.out.println("MOVE NUMBER: " + moveCounter);
+				System.out.println("MOVE NUMBER: " + moveCounter);*/
+				algoMove = scanner.nextInt();
+
 
 			}
 
@@ -453,7 +580,8 @@ public class theGame {
 
 				//	algoMove = 12; // will return 12 to the move
 				//algoMove = scanner.nextInt(); // just random inputs for testing
-				algoMove = r.nextInt(7)+6;
+				//algoMove = r.nextInt(7)+6;
+				algoMove = scanner.nextInt();
 				/*while(KalahGUI.clickState() == false)
 				{
 					try{
@@ -483,8 +611,8 @@ public class theGame {
 
 		return algoMove;
 	}
-	
-	
+
+
 	/*---------------------------------ALGORITHM STARTS HERE (Change only if needed!)---------------------------------
 	 * 
 	 * UPDATED 29/03/2015
@@ -532,34 +660,34 @@ public class theGame {
 		System.out.println("STEAL CHECK: " + stealCheck);
 
 
-/*		if(enemyCheck == true){
+		/*		if(enemyCheck == true){
 			newMove = maxMove;
 			System.out.println("REPEAT DETECTED! BUT BOARD INBALANCED! GO TO SPLITTING POINTS ALGO ");
 
 			//makeMove();
 		}
-*/
+		 */
 		if(repCheck == true && enemyCheck == true){
 			newMove = maxMove;
 			System.out.println("REPEAT DETECTED! BUT BOARD INBALANCED! GO TO SPLITTING POINTS ALGO ");
 
 			//makeMove();
 		}
-		
+
 		else if(repCheck == false && enemyCheck == true){
 			newMove = maxMove;
 			System.out.println("INBALANCE!");
 
 			//makeMove();
 		}
-		
+
 		else if(repCheck == true && enemyCheck == false){
 			newMove = repeatMove;
 			System.out.println("ONLY REPEAT DETECTED!");
 
 			//makeMove();
 		}
-		
+
 		/*	else if(repCheck == true && enemyCheck == true){
 			newMove = enemyMove;
 			System.out.println("REPEAT DETECTED! BUT BOARD INBALANCED! GO TO SPLITTING POINTS ALGO ");
@@ -629,12 +757,12 @@ public class theGame {
 	public static void enemyChecker(){
 		int totalPlayer2Points = testA[7] + testA[8] + testA[9] + testA[10] + testA[11] + testA[12] + testA[13];
 		int player1Points = testA[6];
-		
+
 		System.out.println("TOTAL PLAYER 2 POINTS: " + totalPlayer2Points);
 		System.out.println("TOTAL PLAYER 1 POINTS: " + player1Points);
 
 		boolean emptySlot = false;
-		
+
 		if(testA[0]!=0&&testA[1]==0&&testA[2]==0&&testA[3]==0&&testA[4]==0&&testA[5]==0){
 			emptySlot = true;
 		}
@@ -653,38 +781,38 @@ public class theGame {
 		if(testA[0]==0&&testA[1]==0&&testA[2]==0&&testA[3]==0&&testA[4]==0&&testA[5]!=0){
 			emptySlot = true;
 		}
-		
+
 		System.out.println("EMPTYSLOT: " + emptySlot);
 
-		
+
 		if(totalPlayer2Points > player1Points && emptySlot == false && moveCounter > 3){
 			enemyCheck = true;
 			System.out.println("P2 > P1...Begin block count tests!");
 
 			findMax();
 			System.out.println("SPLITTING POINTS NOW" + "\n\n");
-			
+
 		}
 		else{
 			enemyCheck = false;
 		}
-		
+
 		emptySlot = false;
 
 
 		System.out.println("POINT CHECK: " + enemyCheck);
 	}
-	
+
 	public static void findMax(){
-		
+
 		int max = testA[0];
 		maxMove = 0;
 		int i = 1;
 		int val = 0;
-		
+
 		while(i<=5){
 			val = testA[i];
-			
+
 			if (val < max){
 				i++;
 				System.out.println("1 MAX: " + max);
@@ -692,7 +820,7 @@ public class theGame {
 				System.out.println("1 MAX MOVE: " + maxMove);
 
 			}
-			
+
 			if (val >= max){
 				max = val;
 				maxMove = i;
@@ -701,9 +829,9 @@ public class theGame {
 
 				System.out.println("2 MAX MOVE: " + maxMove);
 			}
-					
+
 		}
-		
+
 		System.out.println("MAX MOVE: " + maxMove);
 	}
 
@@ -951,5 +1079,4 @@ public class theGame {
 		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 	}
 }
-
 
