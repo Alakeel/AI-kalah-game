@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 
 /*
- * 			Version (3.6)
+ * 			Version (3.7)
  */
 
 
@@ -607,13 +607,14 @@ public class theGame {
 
 
 	/*---------------------------------ALGORITHM STARTS HERE (Change only if needed!)---------------------------------
-	 * PLAYER 1 ALGO v3.6
+	 * PLAYER 1 ALGO v3.7
 	 * 
 	 * UPDATED 31/03/2015
 	 * 
 	 * LATEST UPDATE:
 	 * 
 	 * - Changed ALGO priority to go to enemy points check before repeats or steals
+	 * - To go to SPLITTING POINTS ALGO, move now has to be > 4
 	 * 
 	 * LIST OF FEATURES:
 	 * 
@@ -812,7 +813,7 @@ public class theGame {
 		System.out.println("EMPTYSLOT: " + emptySlot);
 
 
-		if(totalPlayer2Points > player1Points && emptySlot == false && moveCounter > 3){
+		if(totalPlayer2Points > player1Points && emptySlot == false && moveCounter > 4){
 			enemyCheck = true;
 			System.out.println("P2 > P1...Begin block count tests!");
 
