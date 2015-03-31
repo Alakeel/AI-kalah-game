@@ -1,4 +1,6 @@
 package kalah;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -11,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 
 /*
- * 			Version (3.2)
+ * 			Version (3.3)
  */
 
 
@@ -54,9 +56,10 @@ public class theGame {
 	static int enemyMove;
 	static int moveCounter = 0;
 	static int maxMove = 99;
+	static int writeCheck;
 
 
-	public static void main(String[] args){
+	public static void main(String[] args) throws IOException{
 		// input and output to start the game
 		iniGame(3);
 		//KalahGUI.gui(); 
@@ -79,7 +82,7 @@ public class theGame {
 		A[13]= 0;
 	}
 
-	public static void startGame(){
+	public static void startGame() throws IOException{
 		System.out.print("Enter Player #(1,2): ");
 		Player = scanner.nextInt();
 		if(Player==1)
@@ -169,7 +172,7 @@ public class theGame {
 		//KalahGUI.gui();
 	}	
 
-	public static void move(){
+	public static void move() throws IOException{
 		int value = 0;
 		System.out.print("Player 1 Enter move: ");
 		//KalahGUI.frame.dispose();
@@ -343,7 +346,7 @@ public class theGame {
 
 	}
 
-	public static void move2(){
+	public static void move2() throws IOException{
 		int value = 0;
 		System.out.print("Player 2 enter move: ");
 		//KalahGUI.frame.dispose();
@@ -543,7 +546,7 @@ public class theGame {
 	}
 
 
-	public static int autoAlgo(){
+	public static int autoAlgo() throws IOException{
 		int algoMove = 0;
 
 		try {
@@ -567,10 +570,10 @@ public class theGame {
 					KalahGUI.currentState = false;
 					algoMove = KalahGUI.V;
 				}*/
-				/*				algoMove= makeMove();
+				algoMove= makeMove();
 				moveCounter++;
-				System.out.println("MOVE NUMBER: " + moveCounter);*/
-				algoMove = scanner.nextInt();
+				System.out.println("MOVE NUMBER: " + moveCounter);
+				//algoMove = scanner.nextInt();
 
 
 			}
@@ -580,8 +583,8 @@ public class theGame {
 
 				//	algoMove = 12; // will return 12 to the move
 				//algoMove = scanner.nextInt(); // just random inputs for testing
-				//algoMove = r.nextInt(7)+6;
-				algoMove = scanner.nextInt();
+				algoMove = r.nextInt(7)+6;
+				//algoMove = scanner.nextInt();
 				/*while(KalahGUI.clickState() == false)
 				{
 					try{
@@ -615,7 +618,12 @@ public class theGame {
 
 	/*---------------------------------ALGORITHM STARTS HERE (Change only if needed!)---------------------------------
 	 * 
-	 * UPDATED 29/03/2015
+	 * UPDATED 30/03/2015
+	 * 
+	 * LATEST UPDATE:
+	 * 
+	 * - Fixed problems resulting from base code change (skipping opposite players base)
+	 * - Added MoveLog.txt support (outputs all moves done to an external text file)
 	 * 
 	 * LIST OF FEATURES:
 	 * 
@@ -634,15 +642,10 @@ public class theGame {
 	 * - 29/03/2015: WIN 22/25 Games --  88% Win Rate -- 2 losses from 0's -- 1 general loss
 	 * 
 	 * 
-	 * NEED TO ADD FEATURES:
-	 * 
-	 * - Store all moves done into an external file
-	 * 
-	 * 
 	 * ALL COMMENTS ARE NEEDED FOR TESTING PURPOSES!
 	 * 
 	 * */
-	public static int makeMove(){
+	public static int makeMove() throws IOException{
 
 
 		for(int i =0;i <= 13;i++)
@@ -670,21 +673,21 @@ public class theGame {
 		if(repCheck == true && enemyCheck == true){
 			newMove = maxMove;
 			System.out.println("REPEAT DETECTED! BUT BOARD INBALANCED! GO TO SPLITTING POINTS ALGO ");
-
+			writeCheck = 1;
 			//makeMove();
 		}
 
 		else if(repCheck == false && enemyCheck == true){
 			newMove = maxMove;
 			System.out.println("INBALANCE!");
-
+			writeCheck = 2;
 			//makeMove();
 		}
 
 		else if(repCheck == true && enemyCheck == false){
 			newMove = repeatMove;
 			System.out.println("ONLY REPEAT DETECTED!");
-
+			writeCheck = 3;
 			//makeMove();
 		}
 
@@ -698,14 +701,14 @@ public class theGame {
 
 			newMove = stealMove;
 			System.out.println("STEAL FOUND!");
-
+			writeCheck = 4;
 		}
 		else{
 			System.out.println("NO MOVE ");
 			//makeMove();				
 			randMove();
 			newMove = newRandom;
-
+			writeCheck = 5;
 		}
 
 		System.out.println("DONE TURN ");
@@ -714,11 +717,46 @@ public class theGame {
 		System.out.println("ENEMY CHECK MOVE: " + maxMove);
 		System.out.println("Steal Move: " + stealMove + "\n\n");
 
+		writeToText();
+		
 		return newMove;
 
 	}
 
+	public static void writeToText() throws IOException{
+		
+			FileWriter out = new FileWriter("MoveLog.txt", true);
+		    
+			if(writeCheck == 1){
+				out.write("MOVE: " + newMove + " -- Repeat detected but board was not balanced, went to SPLITTING POINTS ALGO");
+				out.write("\r\n");
 
+			}
+			if(writeCheck == 2){
+				out.write("MOVE: " + newMove + " -- Board was not balanced, went to SPLITTING POINTS ALGO");
+				out.write("\r\n");
+
+			}
+			if(writeCheck == 3){
+				out.write("MOVE: " + newMove + " -- Only a repeat was detected, went to REPEAT ALGO");
+				out.write("\r\n");
+
+			}
+			if(writeCheck == 4){
+				out.write("MOVE: " + newMove + " -- Steal move was found, went to STEALING POINTS ALGO");
+				out.write("\r\n");
+
+			}
+			if(writeCheck == 5){
+				out.write("MOVE: " + newMove + " -- No preferrable move was found, go to last option");
+				out.write("\r\n");
+
+			}
+
+			out.close();
+			
+	}
+		
 
 	public static int randMove() {
 
@@ -842,7 +880,7 @@ public class theGame {
 		if(testA[0]==0&&testA[12]!=0){
 			//System.out.println("aERRORRRRRR!!!!!!! ");
 
-			for(int i = 1, j =13;i<=5;i++, j--){
+			for(int i = 1, j =12;i<=5;i++, j--){
 				//System.out.println("bERRORRRRRR!!!!!!! ");
 
 				if(testA[i]==j){
@@ -867,7 +905,7 @@ public class theGame {
 		else if(testA[1]==0&&testA[11]!=0){
 			//	System.out.println("2ERRORRRRRR!!!!!!! ");
 
-			for(int i = 2, j =13;i<=5;i++, j--){
+			for(int i = 2, j =12;i<=5;i++, j--){
 
 				if(testA[i]==j){
 
@@ -908,7 +946,7 @@ public class theGame {
 		else if(testA[2]==0&&testA[10]!=0&&testA[1]!=0){
 			//System.out.println("3ERRORRRRRR!!!!!!! ");
 
-			for(int i = 3, j =13;i<=5;i++, j--){
+			for(int i = 3, j =12;i<=5;i++, j--){
 				if(testA[i]==j){
 					stealMove = i;
 					testA[6]+= testA[10] + testA[2];
@@ -938,7 +976,7 @@ public class theGame {
 		else if(testA[3]==0&&testA[9]!=0&&testA[2]!=0){
 			//	System.out.println("4ERRORRRRRR!!!!!!! ");
 
-			for(int i = 4, j =13;i<=5;i++, j--){
+			for(int i = 4, j =12;i<=5;i++, j--){
 				if(testA[i]==j){
 					stealMove = i;
 					testA[6]+= testA[9] + testA[3];
@@ -968,7 +1006,7 @@ public class theGame {
 		else if(testA[4]==0&&testA[8]!=0&&testA[3]!=0){
 			//System.out.println("5ERRORRRRRR!!!!!!! ");
 
-			for(int i = 5, j =13;i<=5;i++, j--){
+			for(int i = 5, j =12;i<=5;i++, j--){
 				if(testA[i]==j){
 					stealMove = i;
 					testA[6]+= testA[8] + testA[4];
