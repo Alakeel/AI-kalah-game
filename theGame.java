@@ -13,16 +13,14 @@ import javax.swing.JOptionPane;
  */
 
 /*
- * 			Version (3.3)
+ * 			Version (3.5)
  */
 
 
 /* NEED TO DO:
  * 
- * - POINTS SKIPPING!!!!
- *    -- When player 1..skip player 2 total box
- *    -- When player 2..skip player 1 total box
- *    
+ * - Integrate GUI
+ * - Player 2 algo  
  * - MORE TESTING FOR ALGORITHM
  * 
  *  
@@ -198,6 +196,7 @@ public class theGame {
 		else{
 			System.out.println("Move is: " +  in);
 			int k=0;
+			int bk=0;
 			int i;
 			int loc = 0;
 			int steal = 99;
@@ -213,79 +212,59 @@ public class theGame {
 						steal = A[loc];
 						A[loc]= ++A[loc];
 						k++;
-					//	System.out.println("hhhhhhhhhhhhhhhhh: " + loc);
-
 					}
 				}
 			}
 			if(in == 5){
 				if(value>=8){
-					if(loc == 13){
-						loc = 0;
-						A[0] = ++A[0];
-					}else{
-						A[++loc]= ++A[loc];
-					}
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[13];
 					System.out.println("Skipped 13");
 				}
 			}
 			else if(in == 4){
 				if(value>=9){
-					if(loc == 13){
-						loc = 0;
-						A[0] = ++A[0];
-					}else{
-						A[++loc]= ++A[loc];
-					}
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[13];
 					System.out.println("Skipped 13");
 				}
 			}
 			else if(in == 3){
 				if(value>=10){
-					if(loc == 13){
-						loc = 0;
-						A[0] = ++A[0];
-					}else{
-						A[++loc]= ++A[loc];
-					}
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[13];
 					System.out.println("Skipped 13");
 				}
 			}
 			else if(in == 2){
 				if(value>=11){
-					if(loc == 13){
-						loc = 0;
-						A[0] = ++A[0];
-					}else{
-						A[++loc]= ++A[loc];
-					}
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[13];
 					System.out.println("Skipped 13");
 				}
 			}
 			else if(in == 1){
 				if(value>=12){
-					if(loc == 13){
-						loc = 0;
-						A[0] = ++A[0];
-					}else{
-						A[++loc]= ++A[loc];
-					}
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[13];
 					System.out.println("Skipped 13");
 				}
 			}
 			else if(in == 0){
-				if(value>=13){
-					if(loc == 13){
-						loc = 0;
-						A[0] = ++A[0];
-					}else{
-						A[++loc]= ++A[loc];
-					}
+				if(value>=13){			
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[13];
 					System.out.println("Skipped 13");
 				}
@@ -391,44 +370,55 @@ public class theGame {
 			}
 			if(in == 7){
 				if(value>=13){
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[6];
-					A[++loc]= ++A[loc];
 					System.out.println("Skipped 6");
 				}
 			}
 			else if(in == 8){
 				if(value>=12){
-					System.out.println("loc"+loc);
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[6];
-					A[++loc]= ++A[loc];
 					System.out.println("Skipped 6");
 				}
 			}
 			else if(in == 9){
 				if(value>=11){
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[6];
-					A[++loc]= ++A[loc];
 					System.out.println("Skipped 6");
 				}
 			}
 			else if(in == 10){
 				if(value>=10){
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[6];
-					A[++loc]= ++A[loc];
 					System.out.println("Skipped 6");
 				}
 			}
 			else if(in == 11){
 				if(value>=9){
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[6];
-					A[++loc]= ++A[loc];
 					System.out.println("Skipped 6");
 				}
 			}
 			else if(in == 12){
 				if(value>=8){
+					steal = A[++loc];
+					--loc;
+					A[++loc]= ++A[loc];		
 					--A[6];
-					A[++loc]= ++A[loc];
 					System.out.println("Skipped 6");
 				}
 			}
@@ -570,10 +560,10 @@ public class theGame {
 					KalahGUI.currentState = false;
 					algoMove = KalahGUI.V;
 				}*/
-				algoMove= makeMove();
+				/*algoMove= makeMove();
 				moveCounter++;
-				System.out.println("MOVE NUMBER: " + moveCounter);
-				//algoMove = scanner.nextInt();
+				System.out.println("MOVE NUMBER: " + moveCounter);*/
+				algoMove = scanner.nextInt();
 
 
 			}
@@ -583,8 +573,8 @@ public class theGame {
 
 				//	algoMove = 12; // will return 12 to the move
 				//algoMove = scanner.nextInt(); // just random inputs for testing
-				algoMove = r.nextInt(7)+6;
-				//algoMove = scanner.nextInt();
+				//algoMove = r.nextInt(7)+6;
+				algoMove = scanner.nextInt();
 				/*while(KalahGUI.clickState() == false)
 				{
 					try{
@@ -1117,4 +1107,3 @@ public class theGame {
 		JOptionPane.showMessageDialog(null, infoMessage, "InfoBox: " + titleBar, JOptionPane.INFORMATION_MESSAGE);
 	}
 }
-
