@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 
 /*
- * 			Version (3.5)
+ * 			Version (3.6)
  */
 
 
@@ -560,10 +560,10 @@ public class theGame {
 					KalahGUI.currentState = false;
 					algoMove = KalahGUI.V;
 				}*/
-				/*algoMove= makeMove();
+				algoMove= makeMove();
 				moveCounter++;
-				System.out.println("MOVE NUMBER: " + moveCounter);*/
-				algoMove = scanner.nextInt();
+				System.out.println("MOVE NUMBER: " + moveCounter);
+				//algoMove = scanner.nextInt();
 
 
 			}
@@ -573,8 +573,8 @@ public class theGame {
 
 				//	algoMove = 12; // will return 12 to the move
 				//algoMove = scanner.nextInt(); // just random inputs for testing
-				//algoMove = r.nextInt(7)+6;
-				algoMove = scanner.nextInt();
+				algoMove = r.nextInt(7)+6;
+				//algoMove = scanner.nextInt();
 				/*while(KalahGUI.clickState() == false)
 				{
 					try{
@@ -607,13 +607,13 @@ public class theGame {
 
 
 	/*---------------------------------ALGORITHM STARTS HERE (Change only if needed!)---------------------------------
+	 * PLAYER 1 ALGO v3.6
 	 * 
-	 * UPDATED 30/03/2015
+	 * UPDATED 31/03/2015
 	 * 
 	 * LATEST UPDATE:
 	 * 
-	 * - Fixed problems resulting from base code change (skipping opposite players base)
-	 * - Added MoveLog.txt support (outputs all moves done to an external text file)
+	 * - Changed ALGO priority to go to enemy points check before repeats or steals
 	 * 
 	 * LIST OF FEATURES:
 	 * 
@@ -624,7 +624,7 @@ public class theGame {
 	 * - Enemy Points calculator (checks for board stabilization)
 	 * - Splitting points (to prevent ALL 0's on our side)
 	 * - Last move checker (prevents game from going into Splitting Points algorithm and crashing on last move)
-	 * 
+	 * - Outputs all moves and descriptions to external MoveLog.txt file
 	 * 
 	 * TESTING (Against RANDOM ALGO):
 	 * 
@@ -642,12 +642,9 @@ public class theGame {
 			testA[i] = A[i];
 		System.out.println(Arrays.toString(testA));
 
+		enemyChecker();
 		p1CheckRepeat();
 		p1CheckSteal();
-		enemyChecker();
-
-
-
 
 		System.out.println("REP CHECK: " + repCheck);
 		System.out.println("STEAL CHECK: " + stealCheck);
@@ -786,8 +783,10 @@ public class theGame {
 		int totalPlayer2Points = testA[7] + testA[8] + testA[9] + testA[10] + testA[11] + testA[12] + testA[13];
 		int player1Points = testA[6];
 
+
 		System.out.println("TOTAL PLAYER 2 POINTS: " + totalPlayer2Points);
 		System.out.println("TOTAL PLAYER 1 POINTS: " + player1Points);
+
 
 		boolean emptySlot = false;
 
